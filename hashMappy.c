@@ -6,11 +6,13 @@ int *mappy = NULL;
 int mappyLen = 0;
 
 int initMappy(int initSize);
-int allocateNewMemory(int* newAdress, int newSize);
+int* allocateNewMemory(int* newAdress, int newSize);
 
 int main() {
     
-    initMappy(20);
+    if (initMappy(20) == 2) {
+        return 2;
+    }
 
     for (size_t i = 0; i < mappyLen; i++)
     {
@@ -23,7 +25,8 @@ int main() {
 int initMappy(int initSize) {
     // init the new mappy
     int *newMappy = NULL;
-    if (allocateNewMemory(newMappy, initSize) == 2) {
+    newMappy = allocateNewMemory(newMappy, initSize);
+    if (*(newMappy) == 2) {
         // could not allocate memory
         return 2;
     }
@@ -40,16 +43,17 @@ int initMappy(int initSize) {
         return 2;
     }
 
+    return 1;
 }
 
-int allocateNewMemory(int* newAdress, int newSize) {
+int* allocateNewMemory(int* newAdress, int newSize) {
     newAdress = realloc(mappy, (sizeof *mappy * 1) * newSize);
     // failed to reallocate memory
     if (newAdress == NULL) {
-        return 2;
+        return NULL;
     }
     mappyLen = newSize;
-    return 1;
+    return newAdress;
 }
 
 int insertValue(int value) {
