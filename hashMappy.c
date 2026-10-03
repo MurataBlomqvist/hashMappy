@@ -26,7 +26,7 @@ int initMappy(int initSize) {
     // init the new mappy
     int *newMappy = NULL;
     newMappy = allocateNewMemory(newMappy, initSize);
-    if (*(newMappy) == 2) {
+    if (newMappy == NULL) {
         // could not allocate memory
         return 2;
     }
